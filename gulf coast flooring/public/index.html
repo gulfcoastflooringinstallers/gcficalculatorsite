@@ -6,7 +6,7 @@
     <meta name="description" content="Expert flooring installation services in Gulfport, Biloxi, and the Mississippi Gulf Coast. Free quotes and in-home estimates available.">
     <meta name="keywords" content="flooring installers, new flooring, Gulfport, Biloxi, D'Iberville, Ocean Springs, Long Beach, Pass Christian, Bay St. Louis, Waveland, Mississippi Gulf Coast">
     <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com https://assets.calendly.com https://maps.googleapis.com https://unpkg.com; object-src 'none'; img-src 'self' https://gcfi-testimonials.firebasestorage.app data: https://*.google.com https://*.gstatic.com;">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com https://assets.calendly.com https://maps.googleapis.com https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://assets.calendly.com https://unpkg.com 'unsafe-inline'; object-src 'none'; img-src 'self' https://gcfi-testimonials.firebasestorage.app data: https://*.google.com https://*.gstatic.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.calendly.com;">
     <title>Flooring Installation in Mississippi Gulf Coast | Gulf Coast Flooring Installers</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -410,6 +410,7 @@
                 });
             } catch (error) {
                 console.error('Error initializing map:', error);
+                document.getElementById('map').innerHTML = '<p>Failed to load map. Please try again later.</p>';
             }
         };
 
@@ -513,7 +514,7 @@
                     }
                 }, (error) => {
                     console.error('Error fetching testimonials:', error);
-                    testimonialContainer.innerHTML = '<p>Unable to load testimonials.</p>';
+                    testimonialContainer.innerHTML = '<p>Unable to load testimonials at this time.</p>';
                     tickerContent.innerHTML = '<span>Unable to load testimonials.</span>';
                 });
             }
@@ -536,7 +537,7 @@
                             testimonialForm.reset();
                             setTimeout(() => testimonialModal.classList.remove('show'), 2000);
                         })
-                        .catch(error => document.getElementById('feedback').textContent = 'Error: ' + error.message);
+                        .catch(error => document.getElementById('feedback').textContent = 'Error submitting testimonial. Please try again.');
                 } else {
                     document.getElementById('feedback').textContent = 'Please fill all required fields.';
                 }
@@ -568,7 +569,7 @@
                     updateCarousel();
                 }, (error) => {
                     console.error('Error fetching photos:', error);
-                    photoCarousel.innerHTML = '<p>Unable to load photos.</p>';
+                    photoCarousel.innerHTML = '<p>Unable to load photos at this time.</p>';
                 });
             }
 
@@ -617,7 +618,7 @@
                         document.getElementById('photoFeedback').textContent = 'Thank you for your photo!';
                         document.getElementById('photoForm').reset();
                         setTimeout(() => document.getElementById('photoModal').classList.remove('show'), 2000);
-                    }).catch(error => document.getElementById('photoFeedback').textContent = 'Error: ' + error.message);
+                    }).catch(error => document.getElementById('photoFeedback').textContent = 'Error uploading photo. Please try again.');
                 } else {
                     document.getElementById('photoFeedback').textContent = 'Please provide all required fields.';
                 }

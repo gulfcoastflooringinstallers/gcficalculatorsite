@@ -6,7 +6,7 @@
     <meta name="description" content="Expert flooring installation services in Gulfport, Biloxi, and the Mississippi Gulf Coast. Free quotes and in-home estimates available.">
     <meta name="keywords" content="flooring installers, new flooring, Gulfport, Biloxi, D'Iberville, Ocean Springs, Long Beach, Pass Christian, Bay St. Louis, Waveland, Mississippi Gulf Coast">
     <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com https://assets.calendly.com https://maps.googleapis.com https://unpkg.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://assets.calendly.com https://unpkg.com 'unsafe-inline'; object-src 'none'; img-src 'self' https://gcfi-testimonials.firebasestorage.app data: https://*.google.com https://*.gstatic.com https://firebasestorage.googleapis.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.calendly.com https://maps.googleapis.com;">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com https://maps.gstatic.com https://maps.googleapis.com https://assets.calendly.com https://unpkg.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://assets.calendly.com https://unpkg.com 'unsafe-inline'; object-src 'none'; img-src 'self' https://gcfi-testimonials.firebasestorage.app data: https://*.google.com https://*.gstatic.com https://firebasestorage.googleapis.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.calendly.com https://maps.googleapis.com;">
     <title>Flooring Installation in Mississippi Gulf Coast | Gulf Coast Flooring Installers</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -52,11 +52,11 @@
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #121212, #1a1a1a);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: #121212;
             color: #ffffff;
             overflow-x: hidden;
+            position: relative;
+        }
         }
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
@@ -161,10 +161,52 @@
             .ticker-content span { font-size: 1rem; margin: 0 15px; }
             #map { height: 300px; }
             blockquote { font-size: 1em; padding: 15px; }
+            .particle-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                overflow: hidden;
+            }
+            .particle {
+                position: absolute;
+                background: rgba(255, 87, 34, 0.3);
+                border-radius: 50%;
+                animation: float 10s infinite ease-in-out;
+            }
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-20px); }
+            }
+            /* Define multiple particles with different positions and delays */
+            .particle:nth-child(1) { width: 20px; height: 20px; top: 10%; left: 20%; animation-delay: 0s; }
+            .particle:nth-child(2) { width: 15px; height: 15px; top: 30%; left: 50%; animation-delay: 2s; }
+            .particle:nth-child(3) { width: 25px; height: 25px; top: 50%; left: 70%; animation-delay: 4s; }
+            .particle:nth-child(4) { width: 10px; height: 10px; top: 20%; left: 80%; animation-delay: 1s; }
+            .particle:nth-child(5) { width: 18px; height: 18px; top: 40%; left: 30%; animation-delay: 3s; }
+            .particle:nth-child(6) { width: 22px; height: 22px; top: 60%; left: 40%; animation-delay: 5s; }
+            .particle:nth-child(7) { width: 12px; height: 12px; top: 70%; left: 10%; animation-delay: 6s; }
+            .particle:nth-child(8) { width: 16px; height: 16px; top: 80%; left: 60%; animation-delay: 7s; }
+            .particle:nth-child(9) { width: 14px; height: 14px; top: 90%; left: 90%; animation-delay: 8s; }
+            .particle:nth-child(10) { width: 20px; height: 20px; top: 25%; left: 15%; animation-delay: 9s; }
         }
     </style>
 </head>
 <body>
+    <div class="particle-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
     <div class="landing-container">
         <header>
             <div class="logo">Gulf Coast Flooring Installers</div>
@@ -376,8 +418,8 @@
     </div>
     <button id="backToTop" style="position: fixed; bottom: 20px; left: 20px; display: none; background: #ff5722; color: #fff; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer;">Top</button>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQ6VuxabHOoDAXvEnkdUxtsK-DSBqNlJ8&callback=initMap" async defer></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQ6VuxabHOoDAXvEnkdUxtsK-DSBqNlJ8&callback=initMap" async></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" async></script>
     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     <script>
         window.onload = function() {
@@ -392,42 +434,45 @@
     </script>
     <script>
         window.initMap = function() {
-            console.log('Attempting to initialize map...');
-            try {
-                const map = new google.maps.Map(document.getElementById('map'), {
-                    center: { lat: 30.3674, lng: -89.0928 },
-                    zoom: 10
-                });
-                console.log('Map object created');
-                const areas = [
-                    { name: "Gulfport", lat: 30.3674, lng: -89.0928 },
-                    { name: "Biloxi", lat: 30.3960, lng: -88.8853 },
-                    { name: "D'Iberville", lat: 30.4266, lng: -88.8906 },
-                    { name: "Ocean Springs", lat: 30.4113, lng: -88.8278 },
-                    { name: "Long Beach", lat: 30.3505, lng: -89.1528 },
-                    { name: "Pass Christian", lat: 30.3158, lng: -89.2475 },
-                    { name: "Bay St. Louis", lat: 30.3088, lng: -89.3300 },
-                    { name: "Waveland", lat: 30.2869, lng: -89.3762 }
-                ];
-                areas.forEach(area => {
-                    const marker = new google.maps.Marker({
-                        position: { lat: area.lat, lng: area.lng },
-                        map: map,
-                        title: area.name
-                    });
-                    const infoWindow = new google.maps.InfoWindow({
-                        content: `<h3>${area.name}</h3><p>Expert flooring services available here.</p>`
-                    });
-                    marker.addListener('click', () => {
-                        infoWindow.open(map, marker);
-                    });
-                });
-                console.log('Map loaded successfully');
-            } catch (error) {
-                console.error('Map initialization failed:', error);
-                document.getElementById('map').innerHTML = '<p>Failed to load map. Check your API key or internet connection.</p>';
-            }
-        };
+    console.log('Attempting to initialize map...');
+    if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+        console.error('Google Maps API not loaded');
+        document.getElementById('map').innerHTML = '<p>Failed to load map. Please check your internet connection or API key.</p>';
+        return;
+    }
+    try {
+        const map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 30.3674, lng: -89.0928 },
+            zoom: 10
+        });
+        console.log('Map object created');
+        const areas = [
+            { name: "Gulfport", lat: 30.3674, lng: -89.0928 },
+            { name: "Biloxi", lat: 30.3960, lng: -88.8853 },
+            { name: "D'Iberville", lat: 30.4266, lng: -88.8906 },
+            { name: "Ocean Springs", lat: 30.4113, lng: -88.8278 },
+            { name: "Long Beach", lat: 30.3505, lng: -89.1528 },
+            { name: "Pass Christian", lat: 30.3158, lng: -89.2475 },
+            { name: "Bay St. Louis", lat: 30.3088, lng: -89.3300 },
+            { name: "Waveland", lat: 30.2869, lng: -89.3762 }
+        ];
+        areas.forEach(area => {
+            const marker = new google.maps.Marker({
+                position: { lat: area.lat, lng: area.lng },
+                map: map,
+                title: area.name
+            });
+            const infoWindow = new google.maps.InfoWindow({
+                content: `<h3>${area.name}</h3><p>Expert flooring services available here.</p>`
+            });
+            marker.addListener('click', () => infoWindow.open(map, marker));
+        });
+        console.log('Map loaded successfully');
+    } catch (error) {
+        console.error('Map initialization failed:', error);
+        document.getElementById('map').innerHTML = '<p>Failed to load map. Error: ' + error.message + '</p>';
+    }
+};
 
         document.addEventListener('DOMContentLoaded', function() {
             AOS.init();

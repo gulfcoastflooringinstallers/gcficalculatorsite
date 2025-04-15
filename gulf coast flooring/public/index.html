@@ -49,7 +49,20 @@
     </script>
     <style>
         html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: #121212; background-image: url('https://gulfcoastflooringinstallers.com/wp-content/uploads/2025/03/IMG_0164.jpg'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat; color: #ffffff; overflow-x: hidden; }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #121212, #1a1a1a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         .landing-container { min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
         header { position: sticky; top: 0; background: rgba(18, 18, 18, 0.95); padding: 15px 25px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 15px rgba(255, 87, 34, 0.5); border-bottom: 2px solid #ff5722; }
         .logo { font-size: 2rem; font-weight: 700; color: #ff5722; background: rgba(255, 255, 255, 0.1); padding: 8px 15px; border-radius: 8px; text-shadow: 0 0 20px rgba(255, 87, 34, 1); animation: glow 2s ease-in-out infinite alternate; }
@@ -99,9 +112,9 @@
         #map { height: 400px; width: 100%; border-radius: 10px; box-shadow: 0 0 20px rgba(255, 87, 34, 0.5); position: relative; }
         #map p { font-size: 1.2rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0; }
         .gallery { position: relative; width: 100%; max-width: 900px; overflow: hidden; }
-        .carousel { display: flex; transition: transform 0.5s ease-in-out; }
+        .carousel { display: flex; transition: transform 0.8s ease-in-out; }
         .carousel img { width: 300px; height: 200px; object-fit: cover; border-radius: 10px; box-shadow: 0 0 20px rgba(255, 87, 34, 0.5); cursor: pointer; flex-shrink: 0; border: 2px solid #00e5ff; margin-right: 10px; }
-        .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 87, 34, 0.9); color: #fff; border: none; padding: 15px; font-size: 1.8rem; cursor: pointer; border-radius: 50%; transition: all 0.3s ease; }
+        .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 87, 34, 0.9); color: #fff; border: none; padding: 15px; font-size: 1.8rem; cursor: pointer; border-radius: 50%; transition: all 0.3s ease; z-index: 10; }
         .carousel-arrow:hover { background: #00e5ff; color: #121212; box-shadow: 0 0 20px rgba(0, 229, 255, 1); }
         #prevArrow { left: 15px; }
         #nextArrow { right: 15px; }
@@ -128,7 +141,7 @@
         #feedback, #photoFeedback { margin-top: 15px; color: #ff5722; text-align: center; text-shadow: 0 0 10px rgba(255, 87, 34, 0.7); }
         blockquote { font-style: italic; margin: 25px 0; padding: 25px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; color: #ffffff; font-size: 1.2em; line-height: 1.6; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); border-left: 5px solid #ff5722; }
         @media (max-width: 768px) {
-            body { background-image: url('https://gulfcoastflooringinstallers.com/wp-content/uploads/2025/03/cropped-IMG_0164.jpg'); background-size: cover; background-position: center; background-attachment: scroll; }
+            body { background: linear-gradient(135deg, #121212, #1a1a1a); background-size: cover; background-position: center; background-attachment: scroll; }
             .hero { padding: 80px 15px; }
             .hero-content { padding: 30px; }
             h1 { font-size: 3rem; letter-spacing: 2px; }
@@ -379,12 +392,13 @@
     </script>
     <script>
         window.initMap = function() {
-            console.log('Initializing Google Map...');
+            console.log('Attempting to initialize map...');
             try {
                 const map = new google.maps.Map(document.getElementById('map'), {
                     center: { lat: 30.3674, lng: -89.0928 },
                     zoom: 10
                 });
+                console.log('Map object created');
                 const areas = [
                     { name: "Gulfport", lat: 30.3674, lng: -89.0928 },
                     { name: "Biloxi", lat: 30.3960, lng: -88.8853 },
@@ -546,7 +560,7 @@
 
             let photos = [], currentIndex = 0, lightboxIndex = 0;
             const photoCarousel = document.getElementById('photoCarousel');
-            const photoWidth = 310; // Width of each photo including margin
+            const photoWidth = 310; // photo width (300px) + margin-right (10px)
 
             function renderPhotos() {
                 const q = query(collection(db, 'photos'), orderBy('timestamp', 'desc'));
@@ -584,49 +598,39 @@
 
             function updateCarousel() {
                 const offset = - (currentIndex + 1) * photoWidth;
-                photoCarousel.style.transition = 'transform 0.5s ease-in-out';
+                photoCarousel.style.transition = 'transform 0.8s ease-in-out';
                 photoCarousel.style.transform = `translateX(${offset}px)`;
             }
 
             document.getElementById('prevArrow').addEventListener('click', () => {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    updateCarousel();
-                } else {
+                if (photos.length === 0) return;
+                currentIndex--;
+                if (currentIndex < -1) {
                     currentIndex = photos.length - 1;
                     photoCarousel.style.transition = 'none';
                     photoCarousel.style.transform = `translateX(-${(currentIndex + 1) * photoWidth}px)`;
                     setTimeout(() => {
-                        photoCarousel.style.transition = 'transform 0.5s ease-in-out';
+                        photoCarousel.style.transition = 'transform 0.8s ease-in-out';
                         updateCarousel();
                     }, 50);
+                } else {
+                    updateCarousel();
                 }
             });
 
             document.getElementById('nextArrow').addEventListener('click', () => {
-                if (currentIndex < photos.length - 1) {
-                    currentIndex++;
-                    updateCarousel();
-                } else {
+                if (photos.length === 0) return;
+                currentIndex++;
+                if (currentIndex > photos.length) {
                     currentIndex = 0;
                     photoCarousel.style.transition = 'none';
                     photoCarousel.style.transform = `translateX(-${(currentIndex + 1) * photoWidth}px)`;
                     setTimeout(() => {
-                        photoCarousel.style.transition = 'transform 0.5s ease-in-out';
+                        photoCarousel.style.transition = 'transform 0.8s ease-in-out';
                         updateCarousel();
                     }, 50);
-                }
-            });
-
-            photoCarousel.addEventListener('transitionend', () => {
-                if (currentIndex === -1) {
-                    photoCarousel.style.transition = 'none';
-                    currentIndex = photos.length - 1;
-                    photoCarousel.style.transform = `translateX(-${(currentIndex + 1) * photoWidth}px)`;
-                } else if (currentIndex === photos.length) {
-                    photoCarousel.style.transition = 'none';
-                    currentIndex = 0;
-                    photoCarousel.style.transform = `translateX(-${(currentIndex + 1) * photoWidth}px)`;
+                } else {
+                    updateCarousel();
                 }
             });
 

@@ -6,7 +6,7 @@
     <meta name="description" content="Expert flooring installation services in Gulfport, Biloxi, and the Mississippi Gulf Coast. Free quotes and in-home estimates available.">
     <meta name="keywords" content="flooring installers, new flooring, Gulfport, Biloxi, D'Iberville, Ocean Springs, Long Beach, Pass Christian, Bay St. Louis, Waveland, Mississippi Gulf Coast">
     <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com https://assets.calendly.com https://maps.googleapis.com https://unpkg.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://assets.calendly.com https://unpkg.com 'unsafe-inline'; object-src 'none'; img-src 'self' https://gcfi-testimonials.firebasestorage.app data: https://*.google.com https://*.gstatic.com https://firebasestorage.googleapis.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.calendly.com;">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com https://assets.calendly.com https://maps.googleapis.com https://unpkg.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://assets.calendly.com https://unpkg.com 'unsafe-inline'; object-src 'none'; img-src 'self' https://gcfi-testimonials.firebasestorage.app data: https://*.google.com https://*.gstatic.com https://firebasestorage.googleapis.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.calendly.com https://maps.googleapis.com;">
     <title>Flooring Installation in Mississippi Gulf Coast | Gulf Coast Flooring Installers</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -99,8 +99,8 @@
         #map { height: 400px; width: 100%; border-radius: 10px; box-shadow: 0 0 20px rgba(255, 87, 34, 0.5); position: relative; }
         #map p { font-size: 1.2rem; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0; }
         .gallery { position: relative; width: 100%; max-width: 900px; overflow: hidden; }
-        .carousel { display: flex; transition: transform 0.5s ease; }
-        .carousel img { width: 300px; height: 200px; object-fit: cover; border-radius: 10px; box-shadow: 0 0 20px rgba(255, 87, 34, 0.5); cursor: pointer; flex-shrink: 0; border: 2px solid #00e5ff; }
+        .carousel { display: flex; transition: transform 0.5s ease-in-out; }
+        .carousel img { width: 300px; height: 200px; object-fit: cover; border-radius: 10px; box-shadow: 0 0 20px rgba(255, 87, 34, 0.5); cursor: pointer; flex-shrink: 0; border: 2px solid #00e5ff; margin-right: 10px; }
         .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 87, 34, 0.9); color: #fff; border: none; padding: 15px; font-size: 1.8rem; cursor: pointer; border-radius: 50%; transition: all 0.3s ease; }
         .carousel-arrow:hover { background: #00e5ff; color: #121212; box-shadow: 0 0 20px rgba(0, 229, 255, 1); }
         #prevArrow { left: 15px; }
@@ -379,7 +379,7 @@
     </script>
     <script>
         window.initMap = function() {
-            console.log('initMap called');
+            console.log('Initializing Google Map...');
             try {
                 const map = new google.maps.Map(document.getElementById('map'), {
                     center: { lat: 30.3674, lng: -89.0928 },
@@ -408,9 +408,10 @@
                         infoWindow.open(map, marker);
                     });
                 });
+                console.log('Map loaded successfully');
             } catch (error) {
-                console.error('Error initializing map:', error);
-                document.getElementById('map').innerHTML = '<p>Failed to load map. Please try again later.</p>';
+                console.error('Map initialization failed:', error);
+                document.getElementById('map').innerHTML = '<p>Failed to load map. Check your API key or internet connection.</p>';
             }
         };
 
@@ -543,8 +544,9 @@
                 }
             });
 
-            const photoCarousel = document.getElementById('photoCarousel');
             let photos = [], currentIndex = 0, lightboxIndex = 0;
+            const photoCarousel = document.getElementById('photoCarousel');
+            const photoWidth = 310; // Width of each photo including margin
 
             function renderPhotos() {
                 const q = query(collection(db, 'photos'), orderBy('timestamp', 'desc'));
@@ -566,7 +568,14 @@
                             photoCarousel.appendChild(img);
                         }
                     });
-                    updateCarousel();
+                    if (photos.length > 0) {
+                        const firstClone = photoCarousel.firstElementChild.cloneNode(true);
+                        const lastClone = photoCarousel.lastElementChild.cloneNode(true);
+                        photoCarousel.appendChild(firstClone);
+                        photoCarousel.insertBefore(lastClone, photoCarousel.firstElementChild);
+                        photoCarousel.style.transform = `translateX(-${photoWidth}px)`;
+                    }
+                    currentIndex = 0;
                 }, (error) => {
                     console.error('Error fetching photos:', error);
                     photoCarousel.innerHTML = '<p>Unable to load photos at this time.</p>';
@@ -574,17 +583,53 @@
             }
 
             function updateCarousel() {
-                if (photos.length === 0) {
-                    photoCarousel.style.transform = 'translateX(0)';
-                    return;
-                }
-                const width = window.innerWidth > 768 ? 300 : photoCarousel.offsetWidth;
-                const offset = -currentIndex * width;
+                const offset = - (currentIndex + 1) * photoWidth;
+                photoCarousel.style.transition = 'transform 0.5s ease-in-out';
                 photoCarousel.style.transform = `translateX(${offset}px)`;
             }
 
-            document.getElementById('prevArrow').addEventListener('click', () => { if (currentIndex > 0) { currentIndex--; updateCarousel(); } });
-            document.getElementById('nextArrow').addEventListener('click', () => { if (currentIndex < photos.length - 1) { currentIndex++; updateCarousel(); } });
+            document.getElementById('prevArrow').addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                } else {
+                    currentIndex = photos.length - 1;
+                    photoCarousel.style.transition = 'none';
+                    photoCarousel.style.transform = `translateX(-${(currentIndex + 1) * photoWidth}px)`;
+                    setTimeout(() => {
+                        photoCarousel.style.transition = 'transform 0.5s ease-in-out';
+                        updateCarousel();
+                    }, 50);
+                }
+            });
+
+            document.getElementById('nextArrow').addEventListener('click', () => {
+                if (currentIndex < photos.length - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                } else {
+                    currentIndex = 0;
+                    photoCarousel.style.transition = 'none';
+                    photoCarousel.style.transform = `translateX(-${(currentIndex + 1) * photoWidth}px)`;
+                    setTimeout(() => {
+                        photoCarousel.style.transition = 'transform 0.5s ease-in-out';
+                        updateCarousel();
+                    }, 50);
+                }
+            });
+
+            photoCarousel.addEventListener('transitionend', () => {
+                if (currentIndex === -1) {
+                    photoCarousel.style.transition = 'none';
+                    currentIndex = photos.length - 1;
+                    photoCarousel.style.transform = `translateX(-${(currentIndex + 1) * photoWidth}px)`;
+                } else if (currentIndex === photos.length) {
+                    photoCarousel.style.transition = 'none';
+                    currentIndex = 0;
+                    photoCarousel.style.transform = `translateX(-${(currentIndex + 1) * photoWidth}px)`;
+                }
+            });
+
             photoCarousel.addEventListener('click', e => {
                 if (e.target.tagName === 'IMG') {
                     lightboxIndex = parseInt(e.target.dataset.index);
@@ -593,9 +638,21 @@
                     document.getElementById('lightbox').classList.add('show');
                 }
             });
-            document.getElementById('lightboxPrev').addEventListener('click', () => { if (lightboxIndex > 0) { lightboxIndex--; document.getElementById('lightboxImg').src = photos[lightboxIndex].url; document.getElementById('lightboxCaption').textContent = photos[lightboxIndex].caption || ''; } });
-            document.getElementById('lightboxNext').addEventListener('click', () => { if (lightboxIndex < photos.length - 1) { lightboxIndex++; document.getElementById('lightboxImg').src = photos[lightboxIndex].url; document.getElementById('lightboxCaption').textContent = photos[lightboxIndex].caption || ''; } });
+
+            document.getElementById('lightboxPrev').addEventListener('click', () => {
+                lightboxIndex = (lightboxIndex - 1 + photos.length) % photos.length;
+                document.getElementById('lightboxImg').src = photos[lightboxIndex].url;
+                document.getElementById('lightboxCaption').textContent = photos[lightboxIndex].caption || '';
+            });
+
+            document.getElementById('lightboxNext').addEventListener('click', () => {
+                lightboxIndex = (lightboxIndex + 1) % photos.length;
+                document.getElementById('lightboxImg').src = photos[lightboxIndex].url;
+                document.getElementById('lightboxCaption').textContent = photos[lightboxIndex].caption || '';
+            });
+
             document.getElementById('lightboxClose').addEventListener('click', () => document.getElementById('lightbox').classList.remove('show'));
+
             renderPhotos();
 
             document.getElementById('openPhotoForm').addEventListener('click', () => document.getElementById('photoModal').classList.add('show'));

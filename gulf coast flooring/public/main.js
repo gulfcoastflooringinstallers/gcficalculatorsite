@@ -1,3 +1,4 @@
+// Google Maps Initialization
 window.initMap = function() {
     console.log('initMap called');
     try {
@@ -33,6 +34,7 @@ window.initMap = function() {
     }
 };
 
+// DOM Content Loaded Event Listener
 document.addEventListener('DOMContentLoaded', function() {
     AOS.init();
     Calendly.initBadgeWidget({
@@ -44,12 +46,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('scheduleEstimate').addEventListener('click', function(e) {
         e.preventDefault();
-        Calendly.initPopupWidget({url: 'https://calendly.com/gulfcoastflooringinstallers/freequote'});
+        Calendly.initPopupWidget({ url: 'https://calendly.com/gulfcoastflooringinstallers/freequote' });
     });
+
+    // Firebase Initialization Check
+    if (!window.firebaseDb || !window.firebaseStorage) {
+        console.error('Firebase is not initialized. Please check firebase-init.js.');
+        return;
+    }
+
     const db = window.firebaseDb;
     const storage = window.firebaseStorage;
     const { collection, addDoc, query, orderBy, onSnapshot, ref, uploadBytes, getDownloadURL } = window.firebaseFunctions;
 
+    // Estimate Calculator Logic
     const installationCostsWithMaterials = {
         "Glue Down Vinyl Plank": 3.25, "Floating Vinyl Plank": 5.25, "Carpet": 2.45, "Sheet Vinyl": 2.45,
         "Glue Down Carpet": 2.45, "Glue Down Wood": null, "Ceramic Tile": null, "Flooring Self Leveler": 3, "Other": null
@@ -117,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.contact-form').addEventListener('input', e => { if (e.target.closest('.entry')) updateEstimate(); });
     updateEstimate();
 
+    // Testimonials Logic
     const testimonialContainer = document.getElementById('testimonialContainer');
     const tickerContent = document.getElementById('tickerContent');
     const testimonialModal = document.getElementById('testimonialModal');
@@ -173,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Photo Carousel Logic
     const photoCarousel = document.getElementById('photoCarousel');
     let photos = [], currentIndex = 0, lightboxIndex = 0;
 
@@ -181,22 +193,26 @@ document.addEventListener('DOMContentLoaded', function() {
         onSnapshot(q, (snapshot) => {
             photos = [];
             photoCarousel.innerHTML = '';
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                if (data.url) {
-                    photos.push(data);
-                    const img = document.createElement('img');
-                    img.src = data.url;
-                    img.alt = `${data.photo_type || 'Photo'} - ${data.caption || `${data.name}'s flooring photo`}`;
-                    img.title = img.alt;
-                    img.dataset.index = photos.length - 1;
-                    img.loading = 'lazy';
-                    img.setAttribute('data-aos', 'flip-left');
-                    img.onerror = () => img.style.display = 'none';
-                    photoCarousel.appendChild(img);
-                }
-            });
-            updateCarousel();
+            if (snapshot.empty) {
+                photoCarousel.innerHTML = '<p>No photos available. Be the first to submit one!</p>';
+            } else {
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data.url) {
+                        photos.push(data);
+                        const img = document.createElement('img');
+                        img.src = data.url;
+                        img.alt = `${data.photo_type || 'Photo'} - ${data.caption || `${data.name}'s flooring photo`}`;
+                        img.title = img.alt;
+                        img.dataset.index = photos.length - 1;
+                        img.loading = 'lazy';
+                        img.setAttribute('data-aos', 'flip-left');
+                        img.onerror = () => img.style.display = 'none';
+                        photoCarousel.appendChild(img);
+                    }
+                });
+                updateCarousel();
+            }
         }, (error) => {
             console.error('Error fetching photos:', error);
             photoCarousel.innerHTML = '<p>Unable to load photos.</p>';
@@ -213,8 +229,18 @@ document.addEventListener('DOMContentLoaded', function() {
         photoCarousel.style.transform = `translateX(${offset}px)`;
     }
 
-    document.getElementById('prevArrow').addEventListener('click', () => { if (currentIndex > 0) { currentIndex--; updateCarousel(); } });
-    document.getElementById('nextArrow').addEventListener('click', () => { if (currentIndex < photos.length - 1) { currentIndex++; updateCarousel(); } });
+    document.getElementById('prevArrow').addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    document.getElementById('nextArrow').addEventListener('click', () => {
+        if (currentIndex < photos.length - 1) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
     photoCarousel.addEventListener('click', e => {
         if (e.target.tagName === 'IMG') {
             lightboxIndex = parseInt(e.target.dataset.index);
@@ -223,11 +249,24 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('lightbox').classList.add('show');
         }
     });
-    document.getElementById('lightboxPrev').addEventListener('click', () => { if (lightboxIndex > 0) { lightboxIndex--; document.getElementById('lightboxImg').src = photos[lightboxIndex].url; document.getElementById('lightboxCaption').textContent = photos[lightboxIndex].caption || ''; } });
-    document.getElementById('lightboxNext').addEventListener('click', () => { if (lightboxIndex < photos.length - 1) { lightboxIndex++; document.getElementById('lightboxImg').src = photos[lightboxIndex].url; document.getElementById('lightboxCaption').textContent = photos[lightboxIndex].caption || ''; } });
+    document.getElementById('lightboxPrev').addEventListener('click', () => {
+        if (lightboxIndex > 0) {
+            lightboxIndex--;
+            document.getElementById('lightboxImg').src = photos[lightboxIndex].url;
+            document.getElementById('lightboxCaption').textContent = photos[lightboxIndex].caption || '';
+        }
+    });
+    document.getElementById('lightboxNext').addEventListener('click', () => {
+        if (lightboxIndex < photos.length - 1) {
+            lightboxIndex++;
+            document.getElementById('lightboxImg').src = photos[lightboxIndex].url;
+            document.getElementById('lightboxCaption').textContent = photos[lightboxIndex].caption || '';
+        }
+    });
     document.getElementById('lightboxClose').addEventListener('click', () => document.getElementById('lightbox').classList.remove('show'));
     renderPhotos();
 
+    // Photo Submission Form Logic
     document.getElementById('openPhotoForm').addEventListener('click', () => document.getElementById('photoModal').classList.add('show'));
     document.getElementById('closePhotoModal').addEventListener('click', () => {
         document.getElementById('photoModal').classList.remove('show');
@@ -254,6 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Back to Top Button Logic
     window.addEventListener('scroll', () => {
         const backToTop = document.getElementById('backToTop');
         if (window.scrollY > 300) {

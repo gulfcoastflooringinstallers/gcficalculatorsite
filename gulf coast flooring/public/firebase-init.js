@@ -12,18 +12,11 @@ const firebaseConfig = {
     measurementId: "G-WJME4LN8BD"
 };
 
-try {
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-    // Expose Firebase instances and functions to the window object
-    window.firebaseApp = app;
-    window.firebaseDb = db;
-    window.firebaseStorage = storage;
-    window.firebaseFunctions = { collection, addDoc, query, orderBy, onSnapshot, ref, uploadBytes, getDownloadURL };
-
-    console.log('Firebase initialized successfully');
-} catch (error) {
-    console.error('Error initializing Firebase:', error);
-}
+window.firebaseApp = app;
+window.firebaseDb = db;
+window.firebaseStorage = storage;
+window.firebaseFunctions = { collection, addDoc, query, orderBy, onSnapshot, ref, uploadBytes, getDownloadURL };

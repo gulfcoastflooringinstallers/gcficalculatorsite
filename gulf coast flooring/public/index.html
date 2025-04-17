@@ -11,62 +11,82 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "HomeAndConstructionBusiness",
-      "name": "Gulf Coast Flooring Installers",
-      "telephone": "+1-228-200-5855",
-      "email": "gulfcoastflooringinstallers@yahoo.com",
-      "areaServed": ["Gulfport", "Biloxi", "D'Iberville", "Ocean Springs", "Long Beach", "Pass Christian", "Bay St. Louis", "Waveland"],
-      "description": "Expert flooring installation services in the Mississippi Gulf Coast area.",
-      "url": "https://gulfcoastflooringinstallers.com"
-    }
-    </script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; line-height: 1.6; color: #333; }
-        header { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://gulfcoastflooringinstallers.com/wp-content/uploads/2025/03/IMG_0164.jpg') no-repeat center center/cover; color: white; text-align: center; padding: 100px 20px; }
-        h1 { font-size: 2.5em; margin-bottom: 10px; }
-        .cta-button { display: inline-block; padding: 10px 20px; background: #ff5722; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; }
-        section { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
-        h2 { font-size: 2em; margin-bottom: 20px; text-align: center; }
-        .contact-form { background: #f9f9f9; padding: 20px; border-radius: 5px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
-        button { padding: 10px 20px; background: #ff5722; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .add-btn, .remove-btn { background: #4CAF50; margin-top: 10px; }
-        .remove-btn { background: #f44336; }
-        .entry { margin-bottom: 10px; padding: 10px; border: 1px solid #eee; }
-        #estimate { display: none; margin-top: 20px; padding: 10px; background: #e0f7fa; border-radius: 5px; }
-        #other-note { display: none; color: #ff5722; }
-        #map { height: 400px; width: 100%; }
-        .services-grid, .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .service-item, .gallery-item { background: #fff; padding: 15px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .ticker { overflow: hidden; white-space: nowrap; background: #f0f0f0; padding: 10px 0; }
-        #tickerContent { display: inline-block; animation: ticker 20s linear infinite; }
-        #tickerContent span { margin-right: 40px; }
-        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
-        .modal.show { display: flex; }
-        .modal-content { background: white; padding: 20px; border-radius: 5px; max-width: 500px; width: 90%; }
-        #photoCarousel { display: flex; overflow: hidden; position: relative; }
-        #photoCarousel img { width: 300px; height: 200px; object-fit: cover; flex-shrink: 0; }
-        .arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer; }
-        #prevArrow { left: 0; }
-        #nextArrow { right: 0; }
-        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
-        #lightbox.show { display: flex; }
-        #lightbox img { max-width: 90%; max-height: 80%; }
-        #lightboxCaption { color: white; margin-top: 10px; }
-        #lightboxPrev, #lightboxNext, #lightboxClose { position: absolute; background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer; }
-        #lightboxPrev { left: 10px; top: 50%; }
-        #lightboxNext { right: 10px; top: 50%; }
-        #lightboxClose { top: 10px; right: 10px; }
-        footer { background: #333; color: white; text-align: center; padding: 20px; }
-        #backToTop { display: none; position: fixed; bottom: 20px; right: 20px; background: #ff5722; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
-        @media (max-width: 768px) { h1 { font-size: 1.8em; } h2 { font-size: 1.5em; } header { padding: 60px 10px; } }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://gulfcoastflooringinstallers.com/wp-content/uploads/2025/03/IMG_0164.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ff5722;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        section {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .contact-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.5em; }
+            header { padding: 60px 10px; }
+        }
     </style>
 </head>
 <body>
@@ -91,159 +111,23 @@
                 <label for="phone">Phone</label>
                 <input type="tel" id="phone" name="phone">
             </div>
-            <div id="installation-entries">
-                <div class="entry">
-                    <label>Installation Type</label>
-                    <select name="install_type[]">
-                        <option value="">Select Type</option>
-                        <option value="Glue Down Vinyl Plank">Glue Down Vinyl Plank</option>
-                        <option value="Floating Vinyl Plank">Floating Vinyl Plank</option>
-                        <option value="Carpet">Carpet</option>
-                        <option value="Sheet Vinyl">Sheet Vinyl</option>
-                        <option value="Glue Down Carpet">Glue Down Carpet</option>
-                        <option value="Glue Down Wood">Glue Down Wood</option>
-                        <option value="Ceramic Tile">Ceramic Tile</option>
-                        <option value="Flooring Self Leveler">Flooring Self Leveler</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <select name="install_option[]">
-                        <option value="labor_only">Labor Only</option>
-                        <option value="with_materials">With Materials</option>
-                    </select>
-                    <input type="number" name="install_sqft[]" placeholder="Square Feet" min="0">
-                    <button type="button" class="remove-btn">Remove</button>
-                </div>
-            </div>
-            <button type="button" class="add-btn" data-container="installation-entries">Add Installation</button>
-            <div id="removal-entries">
-                <div class="entry">
-                    <label>Removal Type</label>
-                    <select name="remove_type[]">
-                        <option value="">Select Type</option>
-                        <option value="Carpet Floor Removal">Carpet Floor Removal</option>
-                        <option value="Glue Down Carpet Removal">Glue Down Carpet Removal</option>
-                        <option value="Floating Wood/Laminate/Vinyl Removal">Floating Wood/Laminate/Vinyl Removal</option>
-                        <option value="Glue Down Vinyl Floor Removal">Glue Down Vinyl Floor Removal</option>
-                        <option value="Ceramic Tile Removal">Ceramic Tile Removal</option>
-                        <option value="Glue Down Wood Floor Removal">Glue Down Wood Floor Removal</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <input type="number" name="remove_sqft[]" placeholder="Square Feet" min="0">
-                    <button type="button" class="remove-btn">Remove</button>
-                </div>
-            </div>
-            <button type="button" class="add-btn" data-container="removal-entries">Add Removal</button>
-            <div id="estimate">
-                <p>Estimated Cost: <span id="cost">$0.00</span></p>
-                <p id="other-note">Note: Costs for "Other" types require a custom quote.</p>
-            </div>
             <div class="form-group">
                 <label for="message">Message</label>
                 <textarea id="message" name="message" rows="4"></textarea>
             </div>
             <button type="submit">Submit Quote Request</button>
         </form>
-        <div id="map" data-aos="fade-up"></div>
-    </section>
-
-    <section id="services">
-        <h2>Our Services</h2>
-        <div class="services-grid">
-            <div class="service-item" data-aos="fade-up">Vinyl Plank Flooring</div>
-            <div class="service-item" data-aos="fade-up" data-aos-delay="100">Carpet Installation</div>
-            <div class="service-item" data-aos="fade-up" data-aos-delay="200">Ceramic Tile</div>
-            <div class="service-item" data-aos="fade-up" data-aos-delay="300">Floor Removal</div>
-        </div>
-    </section>
-
-    <section id="testimonials">
-        <h2>What Our Customers Say</h2>
-        <div class="ticker">
-            <div id="tickerContent"></div>
-        </div>
-        <div id="testimonialContainer" data-aos="fade-up"></div>
-        <button id="openTestimonialForm" class="cta-button">Submit Your Testimonial</button>
-        <div id="testimonialModal" class="modal">
-            <div class="modal-content">
-                <span id="closeModal" style="float: right; cursor: pointer;">&times;</span>
-                <h3>Submit a Testimonial</h3>
-                <form id="testimonialForm">
-                    <div class="form-group">
-                        <label for="testimonialName">Name *</label>
-                        <input type="text" id="testimonialName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="testimonialMessage">Message *</label>
-                        <textarea id="testimonialMessage" rows="4" required></textarea>
-                    </div>
-                    <button type="submit">Submit</button>
-                    <p id="feedback"></p>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery">
-        <h2>Our Work</h2>
-        <div class="gallery-grid" id="photoCarousel"></div>
-        <button id="prevArrow" class="arrow">&lt;</button>
-        <button id="nextArrow" class="arrow">&gt;</button>
-        <div id="lightbox">
-            <button id="lightboxPrev">&lt;</button>
-            <img id="lightboxImg">
-            <p id="lightboxCaption"></p>
-            <button id="lightboxNext">&gt;</button>
-            <button id="lightboxClose">&times;</button>
-        </div>
-        <button id="openPhotoForm" class="cta-button">Submit Your Photo</button>
-        <div id="photoModal" class="modal">
-            <div class="modal-content">
-                <span id="closePhotoModal" style="float: right; cursor: pointer;">&times;</span>
-                <h3>Submit a Photo</h3>
-                <form id="photoForm">
-                    <div class="form-group">
-                        <label for="photoName">Name *</label>
-                        <input type="text" id="photoName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="photoType">Photo Type *</label>
-                        <select id="photoType" required>
-                            <option value="">Select Type</option>
-                            <option value="Before">Before</option>
-                            <option value="After">After</option>
-                            <option value="During">During</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="photoCaption">Caption</label>
-                        <input type="text" id="photoCaption">
-                    </div>
-                    <div class="form-group">
-                        <label for="photoFile">Photo *</label>
-                        <input type="file" id="photoFile" accept="image/*" required>
-                    </div>
-                    <button type="submit">Submit</button>
-                    <p id="photoFeedback"></p>
-                </form>
-            </div>
-        </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 Gulf Coast Flooring Installers</p>
+        <p>© 2025 Gulf Coast Flooring Installers</p>
         <p>Phone: <a href="tel:+12282005855">+1-228-200-5855</a></p>
-        <p>Email: <a href="mailto:gulfcoastflooringinstallers@yahoo.com" data-cfemail="82f1f7e2e7e2e7e3e2e7e2">[email&#160;protected]</a></p>
+        <p>Email: <a href="mailto:gulfcoastflooringinstallers@yahoo.com">gulfcoastflooringinstallers@yahoo.com</a></p>
         <p>Serving Gulfport, Biloxi, D'Iberville, Ocean Springs, Long Beach, Pass Christian, Bay St. Louis, Waveland</p>
     </footer>
 
-    <button id="backToTop">Back to Top</button>
-
-    <script type="module" src="firebase-init.js"></script>
-    <script src="main.js" defer></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQ6VuxabHOoDAXvEnkdUxtsK-DSBqNlJ8&callback=initMap" async defer></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'931780ec1fb8bfe3',t:'MTc0NDg0NjU3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
